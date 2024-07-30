@@ -1,0 +1,47 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    description: Raw dataset schema
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: Sales table
+        columns:
+          - name: products_id
+            description: Identifier for products
+          - name: purchase_price
+            description: Purchase price of the product
+          - name: date_date
+            description: Date of the sale
+          - name: orders_id
+            description: Identifier for orders
+          - name: pdt_id
+            description: Product ID
+          - name: revenue
+            description: Revenue from the sale
+          - name: quantity
+            description: Quantity sold
+      - name: product
+        identifier: raw_gz_product
+        description: Product table
+        columns:
+          - name: products_id
+            description: Identifier for products
+          - name: purchase_price
+            description: Purchase price of the product
+      - name: ship
+        identifier: raw_gz_ship
+        description: Shipping table
+        columns:
+          - name: orders_id
+            description: Identifier for orders
+          - name: shipping_fee
+            description: Shipping fee
+          - name: shipping_fee_1
+            description: Additional shipping fee
+          - name: logCost
+            description: Logistics cost
+          - name: ship_cost
+            description: Shipping cost

@@ -2,6 +2,7 @@ WITH sales AS (
     SELECT
         orders_id,
         products_id,
+        date_date, -- Ensure this column is included
         revenue,
         CAST(quantity AS FLOAT64) AS quantity
     FROM {{ ref('stg_raw__sales') }}
@@ -19,6 +20,7 @@ sales_with_cost AS (
     SELECT
         s.orders_id,
         s.products_id,
+        s.date_date, -- Ensure this column is included
         s.revenue,
         s.quantity,
         p.purchase_price,
@@ -31,6 +33,10 @@ sales_with_cost AS (
 SELECT
     orders_id,
     products_id,
+    date_date, -- Ensure this column is included
+    quantity,
+    revenue,
+    purchase_price,
     purchase_cost,
-    ROUND(revenue - purchase_cost,1) AS margin
+    revenue - purchase_cost AS margin
 FROM sales_with_cost

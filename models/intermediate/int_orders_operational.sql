@@ -3,17 +3,17 @@ WITH sales_margin AS (
         orders_id,
         date_date,
         revenue,
-        purchase_cost,
-        margin
+        margin,
+        purchase_cost
     FROM {{ ref('int_sales_margin') }}
 ),
 
 ship AS (
     SELECT
         orders_id,
-        shipping_fee,
-        log_cost,
-        ship_cost
+        CAST(shipping_fee AS FLOAT64) AS shipping_fee,
+        CAST(log_cost AS FLOAT64) AS log_cost,
+        CAST(ship_cost AS FLOAT64) AS ship_cost
     FROM {{ ref('stg_raw__ship') }}
 ),
 
@@ -23,8 +23,8 @@ joined_data AS (
         sm.orders_id,
         sm.date_date,
         sm.revenue,
-        sm.purchase_cost,
         sm.margin,
+        sm.purchase_cost,
         s.shipping_fee,
         s.log_cost,
         s.ship_cost,
@@ -37,5 +37,11 @@ joined_data AS (
 SELECT
     orders_id,
     date_date,
+    revenue,
+    margin,
+    purchase_cost,
+    shipping_fee,
+    log_cost,
+    ship_cost,
     operational_margin
 FROM joined_data

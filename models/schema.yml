@@ -1,14 +1,35 @@
 version: 2
 
 models:
-  - name: sales
+  - name: int_sales_margin
+    description: "Intermediate model to calculate sales margin"
     columns:
       - name: orders_id
-        description: Primary key of the orders table
+        description: "Primary key for orders"
         tests:
           - not_null
       - name: products_id
-        description: Primary key of the products table
+        description: "Foreign key for products"
+        tests:
+          - not_null
+      - name: date_date
+        description: "Date of the order"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantity of products ordered"
+        tests:
+          - not_null
+      - name: revenue
+        description: "Revenue generated from the order"
+        tests:
+          - not_null
+      - name: purchase_cost
+        description: "Purchase cost for the products in the order"
+        tests:
+          - not_null
+      - name: margin
+        description: "Margin calculated as revenue minus purchase cost"
         tests:
           - not_null
     tests:
@@ -64,3 +85,6 @@ sources:
             description: Logistics cost
           - name: ship_cost
             description: Shipping cost
+
+
+

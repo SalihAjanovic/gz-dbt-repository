@@ -1,5 +1,22 @@
 version: 2
 
+models:
+  - name: sales
+    columns:
+      - name: orders_id
+        description: Primary key of the orders table
+        tests:
+          - not_null
+      - name: products_id
+        description: Primary key of the products table
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - orders_id
+            - products_id
+
 sources:
   - name: raw
     schema: gz_raw_data
@@ -9,26 +26,27 @@ sources:
         identifier: raw_gz_sales
         description: Sales table
         columns:
+          - name: orders_id
+            description: Identifier for orders
           - name: products_id
             description: Identifier for products
           - name: purchase_price
             description: Purchase price of the product
           - name: date_date
             description: Date of the sale
-          - name: orders_id
-            description: Identifier for orders
-          - name: pdt_id
-            description: Product ID
           - name: revenue
             description: Revenue from the sale
           - name: quantity
             description: Quantity sold
       - name: product
         identifier: raw_gz_product
-        description: Product table
+        description: Products table
         columns:
           - name: products_id
             description: Identifier for products
+            tests:
+              - not_null
+              - unique
           - name: purchase_price
             description: Purchase price of the product
       - name: ship
@@ -37,10 +55,11 @@ sources:
         columns:
           - name: orders_id
             description: Identifier for orders
+            tests:
+              - not_null
+              - unique
           - name: shipping_fee
             description: Shipping fee
-          - name: shipping_fee_1
-            description: Additional shipping fee
           - name: logCost
             description: Logistics cost
           - name: ship_cost

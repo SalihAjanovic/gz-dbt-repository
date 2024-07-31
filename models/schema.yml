@@ -13,6 +13,7 @@ sources:
             description: Identifier for orders
             # tests:
             #   - not_null
+            #   - unique
           - name: pdt_id
             description: Identifier for products
             # tests:
@@ -37,6 +38,7 @@ sources:
             description: Identifier for products
             # tests:
             #   - not_null
+            #   - unique
           - name: purchse_price
             description: Purchase price of the product
             # tests:
@@ -49,6 +51,7 @@ sources:
             description: Identifier for orders
             # tests:
             #   - not_null
+            #   - unique
           - name: shipping_fee
             description: Shipping fee
           - name: logCost
@@ -184,6 +187,11 @@ models:
         description: "Margin calculated as revenue minus purchase cost"
         # tests:
         #   - not_null
+    # tests:
+    #   - dbt_utils.unique_combination_of_columns:
+    #       combination_of_columns:
+    #         - orders_id
+    #         - products_id
 
   - name: int_campaigns
     description: "Unified model for paid sources"

@@ -289,4 +289,60 @@ models:
       - name: logcost
         description: "Total logistics cost"
       - name: ship_cost
-        description: "Total shipping cost
+        description: "Total shipping cost"
+      - name: quantity
+        description: "Total quantity"
+      - name: ads_margin
+        description: "Ads margin calculated as operational margin minus ads cost"
+        tests:
+          - not_null
+
+  - name: finance_campaigns_month
+    description: "Aggregated finance and campaigns data by month with ads margin"
+    columns:
+      - name: month
+        description: "Month"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: nb_campaigns
+        description: "Number of unique campaigns"
+        tests:
+          - not_null
+      - name: ads_cost
+        description: "Total ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Total impressions"
+      - name: click
+        description: "Total clicks"
+      - name: revenue
+        description: "Total revenue"
+        tests:
+          - not_null
+      - name: average_basket
+        description: "Average basket value"
+      - name: average_basket_bis
+        description: "Average basket value (bis)"
+      - name: margin
+        description: "Margin"
+      - name: operational_margin
+        description: "Operational margin"
+      - name: purchase_cost
+        description: "Total purchase cost"
+      - name: shipping_fee
+        description: "Total shipping fee"
+      - name: logcost
+        description: "Total logistics cost"
+      - name: ship_cost
+        description: "Total shipping cost"
+      - name: quantity
+        description: "Total quantity"
+      - name: ads_margin
+        description: "Ads margin calculated as operational margin minus ads cost"
+        tests:
+          - not_null

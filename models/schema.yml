@@ -83,3 +83,76 @@ sources:
             description: Logistics cost
           - name: ship_cost
             description: Shipping cost
+        
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Adwords table
+        columns:
+          - name: date_date
+            description: Date
+          - name: paid_source
+            description: Paid source
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: bing
+        identifier: raw_gz_bing
+        description: Bing table
+        columns:
+          - name: date_date
+            description: Date
+          - name: paid_source
+            description: Paid source
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Criteo table
+        columns:
+          - name: date_date
+            description: Date
+          - name: paid_source
+            description: Paid source
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Facebook table
+        columns:
+          - name: date_date
+            description: Date
+          - name: paid_source
+            description: Paid source
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count

@@ -1,18 +1,10 @@
-WITH sales_margin AS (
-    SELECT
-        orders_id,
-        date_date, -- Ensure this column is included
-        revenue,
-        purchase_cost,
-        revenue - purchase_cost AS margin
-    FROM {{ ref('int_sales_margin') }}
-)
-
 SELECT
-    orders_id,
-    date_date, -- Ensure this column is included
-    SUM(revenue) AS total_revenue,
-    SUM(purchase_cost) AS total_purchase_cost,
-    SUM(margin) AS total_margin
-FROM sales_margin
-GROUP BY orders_id, date_date
+  orders_id,
+  date_date,
+  ROUND(SUM(revenue),2) as revenue,
+  ROUND(SUM(quantity),2) as quantity,
+  ROUND(SUM(purchase_cost),2) as purchase_cost,
+  ROUND(SUM(margin),2) as margin
+FROM {{ ref("int_sales_margin") }}
+GROUP BY orders_id,date_date
+ORDER BY orders_id DESC

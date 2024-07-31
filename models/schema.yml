@@ -11,47 +11,28 @@ sources:
         columns:
           - name: orders_id
             description: Identifier for orders
-            # tests:
-            #   - not_null
-            #   - unique
           - name: pdt_id
             description: Identifier for products
-            # tests:
-            #   - not_null
           - name: date_date
             description: Date of the sale
-            # tests:
-            #   - not_null
           - name: revenue
             description: Revenue from the sale
-            # tests:
-            #   - not_null
           - name: quantity
             description: Quantity sold
-            # tests:
-            #   - not_null
       - name: product
         identifier: raw_gz_product
         description: Products table
         columns:
           - name: products_id
             description: Identifier for products
-            # tests:
-            #   - not_null
-            #   - unique
           - name: purchse_price
             description: Purchase price of the product
-            # tests:
-            #   - not_null
       - name: ship
         identifier: raw_gz_ship
         description: Shipping table
         columns:
           - name: orders_id
             description: Identifier for orders
-            # tests:
-            #   - not_null
-            #   - unique
           - name: shipping_fee
             description: Shipping fee
           - name: logCost
@@ -64,20 +45,14 @@ sources:
         columns:
           - name: date_date
             description: Date
-            # tests:
-            #   - not_null
           - name: paid_source
             description: Paid source
-            # tests:
-            #   - not_null
           - name: campaign_key
             description: Campaign key
           - name: camPGN_name
             description: Campaign name
           - name: ads_cost
             description: Ads cost
-            # tests:
-            #   - not_null
           - name: impression
             description: Impression count
           - name: click
@@ -88,20 +63,14 @@ sources:
         columns:
           - name: date_date
             description: Date
-            # tests:
-            #   - not_null
           - name: paid_source
             description: Paid source
-            # tests:
-            #   - not_null
           - name: campaign_key
             description: Campaign key
           - name: camPGN_name
             description: Campaign name
           - name: ads_cost
             description: Ads cost
-            # tests:
-            #   - not_null
           - name: impression
             description: Impression count
           - name: click
@@ -112,20 +81,14 @@ sources:
         columns:
           - name: date_date
             description: Date
-            # tests:
-            #   - not_null
           - name: paid_source
             description: Paid source
-            # tests:
-            #   - not_null
           - name: campaign_key
             description: Campaign key
           - name: camPGN_name
             description: Campaign name
           - name: ads_cost
             description: Ads cost
-            # tests:
-            #   - not_null
           - name: impression
             description: Impression count
           - name: click
@@ -136,20 +99,14 @@ sources:
         columns:
           - name: date_date
             description: Date
-            # tests:
-            #   - not_null
           - name: paid_source
             description: Paid source
-            # tests:
-            #   - not_null
           - name: campaign_key
             description: Campaign key
           - name: camPGN_name
             description: Campaign name
           - name: ads_cost
             description: Ads cost
-            # tests:
-            #   - not_null
           - name: impression
             description: Impression count
           - name: click
@@ -161,57 +118,32 @@ models:
     columns:
       - name: orders_id
         description: "Primary key for orders"
-        # tests:
-        #   - not_null
       - name: products_id
         description: "Foreign key for products"
-        # tests:
-        #   - not_null
       - name: date_date
         description: "Date of the order"
-        # tests:
-        #   - not_null
       - name: quantity
         description: "Quantity of products ordered"
-        # tests:
-        #   - not_null
       - name: revenue
         description: "Revenue generated from the order"
-        # tests:
-        #   - not_null
       - name: purchase_cost
         description: "Purchase cost for the products in the order"
-        # tests:
-        #   - not_null
       - name: margin
         description: "Margin calculated as revenue minus purchase cost"
-        # tests:
-        #   - not_null
-    # tests:
-    #   - dbt_utils.unique_combination_of_columns:
-    #       combination_of_columns:
-    #         - orders_id
-    #         - products_id
 
   - name: int_campaigns
     description: "Unified model for paid sources"
     columns:
       - name: date_date
         description: "Date"
-        # tests:
-        #   - not_null
       - name: paid_source
         description: "Paid source"
-        # tests:
-        #   - not_null
       - name: campaign_key
         description: "Campaign key"
       - name: campaign_name
         description: "Campaign name"
       - name: ads_cost
         description: "Ads cost"
-        # tests:
-        #   - not_null
       - name: impression
         description: "Impression count"
       - name: click
@@ -222,12 +154,8 @@ models:
     columns:
       - name: date_date
         description: "Date"
-        # tests:
-        #   - not_null
       - name: paid_source
         description: "Paid source"
-        # tests:
-        #   - not_null
       - name: nb_campaigns
         description: "Number of unique campaigns"
       - name: ads_cost

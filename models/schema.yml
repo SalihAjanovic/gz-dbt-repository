@@ -49,10 +49,8 @@ sources:
         columns:
           - name: orders_id
             description: Identifier for orders
-          - name: products_id
-            description: Identifier for products
-          - name: purchase_price
-            description: Purchase price of the product
+          - name: pdt_id
+            description: Identifier for products (Corrected name)
           - name: date_date
             description: Date of the sale
           - name: revenue
@@ -64,12 +62,12 @@ sources:
         description: Products table
         columns:
           - name: products_id
-            description: Identifier for products
+            description: Identifier for products (Corrected name)
             tests:
               - not_null
               - unique
-          - name: purchase_price
-            description: Purchase price of the product
+          - name: purchse_price
+            description: Purchase price of the product (Corrected name)
       - name: ship
         identifier: raw_gz_ship
         description: Shipping table
@@ -85,6 +83,3 @@ sources:
             description: Logistics cost
           - name: ship_cost
             description: Shipping cost
-
-
-

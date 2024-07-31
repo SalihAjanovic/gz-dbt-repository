@@ -193,7 +193,7 @@ models:
             - orders_id
             - products_id
 
-  - name: unified_paid_sources
+  - name: int_campaigns
     description: "Unified model for paid sources"
     columns:
       - name: date_date
@@ -222,3 +222,27 @@ models:
             - date_date
             - paid_source
             - campaign_key
+
+  - name: int_campaigns_day
+    description: "Aggregated campaigns data by day"
+    columns:
+      - name: date_date
+        description: "Date"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: nb_campaigns
+        description: "Number of unique campaigns"
+        tests:
+          - not_null
+      - name: ads_cost
+        description: "Total ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Total impressions"
+      - name: click
+        description: "Total clicks"

@@ -1,0 +1,85 @@
+version: 2
+
+models:
+  - name: int_sales_margin
+    description: "Intermediate model to calculate sales margin"
+    columns:
+      - name: orders_id
+        description: "Primary key for orders"
+        tests:
+          - not_null
+      - name: products_id
+        description: "Foreign key for products"
+        tests:
+          - not_null
+      - name: date_date
+        description: "Date of the order"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantity of products ordered"
+        tests:
+          - not_null
+      - name: revenue
+        description: "Revenue generated from the order"
+        tests:
+          - not_null
+      - name: purchase_cost
+        description: "Purchase cost for the products in the order"
+        tests:
+          - not_null
+      - name: margin
+        description: "Margin calculated as revenue minus purchase cost"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - orders_id
+            - products_id
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    description: Raw dataset schema
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: Sales table
+        columns:
+          - name: orders_id
+            description: Identifier for orders
+          - name: pdt_id
+            description: Identifier for products (Corrected name)
+          - name: date_date
+            description: Date of the sale
+          - name: revenue
+            description: Revenue from the sale
+          - name: quantity
+            description: Quantity sold
+      - name: product
+        identifier: raw_gz_product
+        description: Products table
+        columns:
+          - name: products_id
+            description: Identifier for products (Corrected name)
+            tests:
+              - not_null
+              - unique
+          - name: purchse_price
+            description: Purchase price of the product (Corrected name)
+      - name: ship
+        identifier: raw_gz_ship
+        description: Shipping table
+        columns:
+          - name: orders_id
+            description: Identifier for orders
+            tests:
+              - not_null
+              - unique
+          - name: shipping_fee
+            description: Shipping fee
+          - name: logCost
+            description: Logistics cost
+          - name: ship_cost
+            description: Shipping cost

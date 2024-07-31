@@ -14,6 +14,9 @@ models:
       finance:
         schema: dbt_salih_finance  # This will create a schema with this name for the finance folder
         materialized: table  
+      staging:
+      raw:
+        materialized: view  # Default materialization for staging models
 
 
 # This setting configures which "profile" dbt uses for this project.

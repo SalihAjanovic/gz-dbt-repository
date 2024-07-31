@@ -1,5 +1,160 @@
 version: 2
 
+sources:
+  - name: raw
+    schema: gz_raw_data
+    description: Raw dataset schema
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: Sales table
+        columns:
+          - name: orders_id
+            description: Identifier for orders
+            tests:
+              - not_null
+              - unique
+          - name: pdt_id
+            description: Identifier for products
+            tests:
+              - not_null
+          - name: date_date
+            description: Date of the sale
+            tests:
+              - not_null
+          - name: revenue
+            description: Revenue from the sale
+            tests:
+              - not_null
+          - name: quantity
+            description: Quantity sold
+            tests:
+              - not_null
+      - name: product
+        identifier: raw_gz_product
+        description: Products table
+        columns:
+          - name: products_id
+            description: Identifier for products
+            tests:
+              - not_null
+              - unique
+          - name: purchse_price
+            description: Purchase price of the product
+            tests:
+              - not_null
+      - name: ship
+        identifier: raw_gz_ship
+        description: Shipping table
+        columns:
+          - name: orders_id
+            description: Identifier for orders
+            tests:
+              - not_null
+              - unique
+          - name: shipping_fee
+            description: Shipping fee
+          - name: logCost
+            description: Logistics cost
+          - name: ship_cost
+            description: Shipping cost
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Adwords table
+        columns:
+          - name: date_date
+            description: Date
+            tests:
+              - not_null
+          - name: paid_source
+            description: Paid source
+            tests:
+              - not_null
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+            tests:
+              - not_null
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: bing
+        identifier: raw_gz_bing
+        description: Bing table
+        columns:
+          - name: date_date
+            description: Date
+            tests:
+              - not_null
+          - name: paid_source
+            description: Paid source
+            tests:
+              - not_null
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+            tests:
+              - not_null
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Criteo table
+        columns:
+          - name: date_date
+            description: Date
+            tests:
+              - not_null
+          - name: paid_source
+            description: Paid source
+            tests:
+              - not_null
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+            tests:
+              - not_null
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Facebook table
+        columns:
+          - name: date_date
+            description: Date
+            tests:
+              - not_null
+          - name: paid_source
+            description: Paid source
+            tests:
+              - not_null
+          - name: campaign_key
+            description: Campaign key
+          - name: camPGN_name
+            description: Campaign name
+          - name: ads_cost
+            description: Ads cost
+            tests:
+              - not_null
+          - name: impression
+            description: Impression count
+          - name: click
+            description: Click count
+
 models:
   - name: int_sales_margin
     description: "Intermediate model to calculate sales margin"
@@ -38,48 +193,156 @@ models:
             - orders_id
             - products_id
 
-sources:
-  - name: raw
-    schema: gz_raw_data
-    description: Raw dataset schema
-    tables:
-      - name: sales
-        identifier: raw_gz_sales
-        description: Sales table
-        columns:
-          - name: orders_id
-            description: Identifier for orders
-          - name: pdt_id
-            description: Identifier for products (Corrected name)
-          - name: date_date
-            description: Date of the sale
-          - name: revenue
-            description: Revenue from the sale
-          - name: quantity
-            description: Quantity sold
-      - name: product
-        identifier: raw_gz_product
-        description: Products table
-        columns:
-          - name: products_id
-            description: Identifier for products (Corrected name)
-            tests:
-              - not_null
-              - unique
-          - name: purchse_price
-            description: Purchase price of the product (Corrected name)
-      - name: ship
-        identifier: raw_gz_ship
-        description: Shipping table
-        columns:
-          - name: orders_id
-            description: Identifier for orders
-            tests:
-              - not_null
-              - unique
-          - name: shipping_fee
-            description: Shipping fee
-          - name: logCost
-            description: Logistics cost
-          - name: ship_cost
-            description: Shipping cost
+  - name: int_campaigns
+    description: "Unified model for paid sources"
+    columns:
+      - name: date_date
+        description: "Date"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: campaign_key
+        description: "Campaign key"
+      - name: campaign_name
+        description: "Campaign name"
+      - name: ads_cost
+        description: "Ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Impression count"
+      - name: click
+        description: "Click count"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_date
+            - paid_source
+            - campaign_key
+
+  - name: int_campaigns_day
+    description: "Aggregated campaigns data by day"
+    columns:
+      - name: date_date
+        description: "Date"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: nb_campaigns
+        description: "Number of unique campaigns"
+        tests:
+          - not_null
+      - name: ads_cost
+        description: "Total ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Total impressions"
+      - name: click
+        description: "Total clicks"
+
+  - name: finance_campaigns_day
+    description: "Aggregated finance and campaigns data by day with ads margin"
+    columns:
+      - name: date_date
+        description: "Date"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: nb_campaigns
+        description: "Number of unique campaigns"
+        tests:
+          - not_null
+      - name: ads_cost
+        description: "Total ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Total impressions"
+      - name: click
+        description: "Total clicks"
+      - name: revenue
+        description: "Total revenue"
+        tests:
+          - not_null
+      - name: average_basket
+        description: "Average basket value"
+      - name: average_basket_bis
+        description: "Average basket value (bis)"
+      - name: margin
+        description: "Margin"
+      - name: operational_margin
+        description: "Operational margin"
+      - name: purchase_cost
+        description: "Total purchase cost"
+      - name: shipping_fee
+        description: "Total shipping fee"
+      - name: logcost
+        description: "Total logistics cost"
+      - name: ship_cost
+        description: "Total shipping cost"
+      - name: quantity
+        description: "Total quantity"
+      - name: ads_margin
+        description: "Ads margin calculated as operational margin minus ads cost"
+        tests:
+          - not_null
+
+  - name: finance_campaigns_month
+    description: "Aggregated finance and campaigns data by month with ads margin"
+    columns:
+      - name: month
+        description: "Month"
+        tests:
+          - not_null
+      - name: paid_source
+        description: "Paid source"
+        tests:
+          - not_null
+      - name: nb_campaigns
+        description: "Number of unique campaigns"
+        tests:
+          - not_null
+      - name: ads_cost
+        description: "Total ads cost"
+        tests:
+          - not_null
+      - name: impression
+        description: "Total impressions"
+      - name: click
+        description: "Total clicks"
+      - name: revenue
+        description: "Total revenue"
+        tests:
+          - not_null
+      - name: average_basket
+        description: "Average basket value"
+      - name: average_basket_bis
+        description: "Average basket value (bis)"
+      - name: margin
+        description: "Margin"
+      - name: operational_margin
+        description: "Operational margin"
+      - name: purchase_cost
+        description: "Total purchase cost"
+      - name: shipping_fee
+        description: "Total shipping fee"
+      - name: logcost
+        description: "Total logistics cost"
+      - name: ship_cost
+        description: "Total shipping cost"
+      - name: quantity
+        description: "Total quantity"
+      - name: ads_margin
+        description: "Ads margin calculated as operational margin minus ads cost"
+        tests:
+          - not_null
